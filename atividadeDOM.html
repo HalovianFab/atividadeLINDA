@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Exercícios DOM</title>
+</head>
+<body>
+
+    <!-- 1. Contador de cliques -->
+    <button id="botao1">Clique aqui</button>
+    <p id="contador">Cliques: 0</p>
+
+    <!-- 2. Clique duplo -->
+    <button id="botao2">Clique duas vezes</button>
+
+    <!-- 3. Mouseenter e mouseleave -->
+    <button id="botao3">Passe o mouse aqui</button>
+
+    <script>
+        // 1. Contador de cliques
+        let cliques = 0;
+
+        document.getElementById("botao1").addEventListener("click", function() {
+            cliques++;
+            document.getElementById("contador").textContent = "Cliques: " + cliques;
+        });
+
+
+        // 2. Clique duplo
+        document.getElementById("botao2").addEventListener("dblclick", function() {
+            this.textContent = "Você conseguiu!";
+        });
+
+
+        // 3. Mouseenter e mouseleave
+        let botao3 = document.getElementById("botao3");
+
+        botao3.addEventListener("mouseenter", function() {
+            botao3.style.backgroundColor = "lightblue";
+        });
+
+        botao3.addEventListener("mouseleave", function() {
+            botao3.style.backgroundColor = "";
+        });
+    </script>
+
+</body>
+</html>
