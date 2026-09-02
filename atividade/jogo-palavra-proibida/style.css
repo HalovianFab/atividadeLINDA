@@ -1,0 +1,770 @@
+
+/* =========================================
+   CONFIGURAÇÕES GERAIS
+========================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 30px;
+
+    background:
+        radial-gradient(circle at top, #30245c 0%, transparent 40%),
+        radial-gradient(circle at bottom, #142d4c 0%, transparent 45%),
+        #090914;
+
+    color: #ffffff;
+}
+
+
+/* =========================================
+   PAINEL PRINCIPAL
+========================================= */
+
+.game {
+    width: 100%;
+    max-width: 850px;
+
+    padding: 35px;
+
+    background: rgba(20, 20, 38, 0.88);
+
+    border: 1px solid rgba(180, 150, 255, 0.25);
+
+    border-radius: 25px;
+
+    box-shadow:
+        0 0 50px rgba(80, 50, 160, 0.25),
+        inset 0 0 30px rgba(255, 255, 255, 0.02);
+
+    text-align: center;
+
+    backdrop-filter: blur(12px);
+}
+
+
+/* =========================================
+   TÍTULO
+========================================= */
+
+h1 {
+    font-size: 42px;
+    letter-spacing: 3px;
+
+    margin-bottom: 12px;
+
+    background: linear-gradient(
+        90deg,
+        #b98cff,
+        #ffffff,
+        #71d9ff
+    );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+
+    text-shadow: 0 0 25px rgba(160, 120, 255, 0.35);
+}
+
+.description {
+    color: #bcb8d3;
+    font-size: 16px;
+
+    margin-bottom: 30px;
+}
+
+
+/* =========================================
+   PALAVRA
+========================================= */
+
+.word-section {
+    padding: 25px;
+
+    margin-bottom: 25px;
+
+    border-radius: 18px;
+
+    background: rgba(255, 255, 255, 0.035);
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.word-section h2 {
+    font-size: 14px;
+    text-transform: uppercase;
+
+    letter-spacing: 3px;
+
+    color: #918ba9;
+
+    margin-bottom: 15px;
+}
+
+#word {
+    font-size: 42px;
+    font-weight: bold;
+
+    letter-spacing: 12px;
+
+    color: #ffffff;
+
+    text-shadow:
+        0 0 10px rgba(180, 140, 255, 0.6);
+}
+
+
+/* =========================================
+   CHANCES
+========================================= */
+
+.chances {
+    margin-bottom: 15px;
+}
+
+.chances p {
+    color: #aaa5c1;
+    margin-bottom: 10px;
+}
+
+.chances strong {
+    color: white;
+}
+
+#hearts {
+    font-size: 25px;
+
+    letter-spacing: 5px;
+
+    min-height: 35px;
+}
+
+
+/* =========================================
+   INSTRUÇÃO
+========================================= */
+
+.instruction {
+    color: #817c99;
+
+    font-size: 14px;
+
+    margin-bottom: 25px;
+}
+
+
+/* =========================================
+   ÁREA DE AJUDA
+========================================= */
+
+.help {
+    padding: 20px;
+
+    margin-bottom: 25px;
+
+    background: rgba(120, 80, 220, 0.08);
+
+    border: 1px solid rgba(160, 120, 255, 0.18);
+
+    border-radius: 18px;
+}
+
+.help h2 {
+    font-size: 16px;
+
+    margin-bottom: 12px;
+
+    color: #c9b5ff;
+}
+
+.resources {
+    font-size: 12px;
+    color: #716b85;
+
+    margin-top: 8px;
+}
+
+
+/* =========================================
+   BOTÃO DICA VIP
+========================================= */
+
+#vip-button {
+    border: none;
+
+    padding: 12px 25px;
+
+    border-radius: 12px;
+
+    background: linear-gradient(
+        135deg,
+        #8055d6,
+        #5436a5
+    );
+
+    color: white;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 5px 20px rgba(100, 60, 200, 0.35);
+
+    transition: 0.2s;
+}
+
+#vip-button:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 25px rgba(130, 80, 255, 0.5);
+}
+
+#vip-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+
+/* =========================================
+   DICA REVELADA
+========================================= */
+
+#vip-hint {
+    margin-top: 15px;
+
+    padding: 15px;
+
+    border-radius: 12px;
+
+    background: rgba(0, 0, 0, 0.25);
+
+    border: 1px dashed rgba(180, 150, 255, 0.3);
+
+    color: #d8ccff;
+
+    animation: aparecer 0.3s ease;
+}
+
+
+/* =========================================
+   TECLADO
+========================================= */
+
+.keyboard {
+    display: grid;
+
+    grid-template-columns: repeat(13, 1fr);
+
+    gap: 8px;
+
+    margin-bottom: 30px;
+}
+
+.keyboard button {
+    height: 45px;
+
+    border: 1px solid rgba(255, 255, 255, 0.1);
+
+    border-radius: 10px;
+
+    background: rgba(255, 255, 255, 0.06);
+
+    color: white;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.15s;
+}
+
+.keyboard button:hover {
+    background: rgba(160, 120, 255, 0.25);
+
+    border-color: rgba(180, 150, 255, 0.5);
+
+    transform: translateY(-2px);
+}
+
+.keyboard button:active {
+    transform: scale(0.92);
+}
+
+.keyboard button:disabled {
+    opacity: 0.25;
+
+    cursor: not-allowed;
+
+    transform: none;
+}
+
+
+/* =========================================
+   APOSTA FINAL
+========================================= */
+
+.final-bet {
+    padding-top: 10px;
+}
+
+.final-bet h2 {
+    font-size: 15px;
+
+    color: #858096;
+
+    margin-bottom: 12px;
+}
+
+
+/* =========================================
+   BOTÃO APOSTA FINAL
+========================================= */
+
+#final-button {
+    border: 1px solid rgba(255, 190, 90, 0.5);
+
+    padding: 14px 30px;
+
+    border-radius: 13px;
+
+    background: linear-gradient(
+        135deg,
+        #c9872f,
+        #80501e
+    );
+
+    color: white;
+
+    font-weight: bold;
+
+    letter-spacing: 1px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 5px 20px rgba(180, 110, 30, 0.25);
+
+    transition: 0.2s;
+}
+
+#final-button:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 25px rgba(220, 140, 40, 0.4);
+}
+
+#final-button:disabled {
+    opacity: 0.4;
+
+    cursor: not-allowed;
+
+    transform: none;
+}
+
+
+/* =========================================
+   CAMPO DA APOSTA
+========================================= */
+
+#final-input {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    margin-top: 15px;
+
+    animation: aparecer 0.3s ease;
+}
+
+#guess {
+    width: 260px;
+
+    padding: 13px 15px;
+
+    border-radius: 10px;
+
+    border: 1px solid rgba(255, 255, 255, 0.15);
+
+    outline: none;
+
+    background: rgba(0, 0, 0, 0.3);
+
+    color: white;
+
+    font-size: 14px;
+}
+
+#guess:focus {
+    border-color: #a985ff;
+
+    box-shadow:
+        0 0 15px rgba(150, 110, 255, 0.2);
+}
+
+#submit-guess {
+    border: none;
+
+    border-radius: 10px;
+
+    padding: 0 20px;
+
+    background: #6547a8;
+
+    color: white;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+#submit-guess:hover {
+    background: #8060c7;
+}
+
+
+/* =========================================
+   MENSAGENS
+========================================= */
+
+#message {
+    min-height: 25px;
+
+    margin-top: 20px;
+
+    font-weight: bold;
+
+    color: #d7d1e8;
+
+    animation: aparecer 0.25s ease;
+}
+
+
+/* =========================================
+   CLASSE ESCONDIDA
+========================================= */
+
+.hidden {
+    display: none !important;
+}
+
+
+/* =========================================
+   ANIMAÇÕES
+========================================= */
+
+@keyframes aparecer {
+
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+/* =========================================
+   RESPONSIVIDADE
+========================================= */
+
+@media (max-width: 700px) {
+
+    body {
+        padding: 15px;
+    }
+
+    .game {
+        padding: 22px;
+    }
+
+    h1 {
+        font-size: 30px;
+    }
+
+    #word {
+        font-size: 30px;
+        letter-spacing: 7px;
+    }
+
+    .keyboard {
+        grid-template-columns: repeat(7, 1fr);
+    }
+
+    #final-input {
+        flex-direction: column;
+    }
+
+    #guess {
+        width: 100%;
+    }
+
+    #submit-guess {
+        padding: 12px;
+    }
+
+}
+
+/* =========================================
+   TELA DE VITÓRIA — CAOS ABSOLUTO
+========================================= */
+
+#victory-screen {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 9999;
+
+    overflow: hidden;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    background:
+        radial-gradient(circle, #3d2670, #080810 70%);
+
+    animation: victoryAppear 0.5s ease;
+}
+
+
+/* TÍTULO GIGANTE */
+
+.victory-title {
+    position: relative;
+
+    z-index: 10;
+
+    font-size: clamp(55px, 10vw, 130px);
+
+    font-weight: 900;
+
+    text-align: center;
+
+    letter-spacing: 8px;
+
+    color: white;
+
+    text-shadow:
+        5px 5px 0 #6b43b5,
+        -3px -3px 0 #a879ff,
+        0 0 40px #ffffff;
+
+    animation:
+        victoryBounce 0.7s infinite alternate,
+        victoryShake 0.15s infinite;
+}
+
+
+/* SUBTÍTULO */
+
+.victory-subtitle {
+    position: relative;
+
+    z-index: 10;
+
+    margin-top: 20px;
+
+    padding: 10px 20px;
+
+    background: rgba(0, 0, 0, 0.45);
+
+    border: 1px solid rgba(255, 255, 255, 0.3);
+
+    border-radius: 12px;
+
+    font-size: 16px;
+
+    letter-spacing: 3px;
+
+    color: white;
+
+    animation: subtitleSpin 3s infinite linear;
+}
+
+
+/* CONTAINER DAS COISAS MALUCAS */
+
+#chaos-container {
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+}
+
+
+/* COISAS VOANDO */
+
+.chaos-object {
+    position: absolute;
+
+    font-size: 30px;
+
+    font-weight: bold;
+
+    color: white;
+
+    white-space: nowrap;
+
+    animation:
+        chaosFly var(--duration) linear forwards;
+
+    transform: rotate(var(--rotation));
+
+    text-shadow:
+        0 0 10px rgba(255, 255, 255, 0.8);
+}
+
+
+/* CONFETES */
+
+.confetti {
+    position: absolute;
+
+    width: 10px;
+    height: 20px;
+
+    background: white;
+
+    animation:
+        confettiFall var(--duration) linear forwards;
+
+    transform: rotate(var(--rotation));
+}
+
+
+/* ANIMAÇÕES */
+
+@keyframes victoryAppear {
+
+    from {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+}
+
+
+@keyframes victoryBounce {
+
+    from {
+        transform: scale(1) rotate(-2deg);
+    }
+
+    to {
+        transform: scale(1.08) rotate(2deg);
+    }
+
+}
+
+
+@keyframes victoryShake {
+
+    0% {
+        margin-left: -3px;
+    }
+
+    50% {
+        margin-left: 3px;
+    }
+
+    100% {
+        margin-left: -3px;
+    }
+
+}
+
+
+@keyframes subtitleSpin {
+
+    0% {
+        transform: rotate(-2deg);
+    }
+
+    50% {
+        transform: rotate(2deg) scale(1.05);
+    }
+
+    100% {
+        transform: rotate(-2deg);
+    }
+
+}
+
+
+@keyframes chaosFly {
+
+    0% {
+        transform:
+            translate(0, 0)
+            rotate(var(--rotation))
+            scale(0.5);
+
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    100% {
+        transform:
+            translate(var(--x), var(--y))
+            rotate(calc(var(--rotation) + 720deg))
+            scale(1.2);
+
+        opacity: 0;
+    }
+
+}
+
+
+@keyframes confettiFall {
+
+    0% {
+        transform:
+            translateY(-100px)
+            rotate(0deg);
+    }
+
+    100% {
+        transform:
+            translateY(110vh)
+            rotate(900deg);
+    }
+
+}

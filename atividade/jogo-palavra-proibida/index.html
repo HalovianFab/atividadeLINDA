@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo Palavra Proibida</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <main class="game">
+
+        <!-- Título -->
+        <h1>Jogo Palavra Proibida</h1>
+
+        <!-- Descrição -->
+        <p class="description">
+            Uma iguaria picante e proibida amada pelos gângsteres!
+        </p>
+
+        <!-- Palavra -->
+        <section class="word-section">
+            <h2>Palavra oculta</h2>
+
+            <div id="word">
+                B_N_NA
+            </div>
+        </section>
+
+        <!-- Chances -->
+        <section class="chances">
+
+            <p>
+                Você tem <strong>5 chances!</strong>
+            </p>
+
+            <div id="hearts">
+                ❤️ ❤️ ❤️ ❤️ ❤️
+            </div>
+
+        </section>
+
+        <!-- Instrução -->
+        <p class="instruction">
+            Adivinhe as letras e aposte nas suas chances
+        </p>
+
+        <!-- Ajuda -->
+        <section class="help">
+
+            <h2>Segunda ajuda</h2>
+
+            <button id="vip-button">
+                💎 Dica VIP
+            </button>
+
+            <p class="resources">
+                (Recursos SOS)
+            </p>
+
+            <div id="vip-hint" class="hidden">
+                Clique na dica VIP para receber uma pista confidencial!
+            </div>
+
+        </section>
+
+        <!-- Teclado -->
+        <section class="keyboard" id="keyboard">
+
+            <button>A</button>
+            <button>B</button>
+            <button>C</button>
+            <button>D</button>
+            <button>E</button>
+            <button>F</button>
+            <button>G</button>
+            <button>H</button>
+            <button>I</button>
+            <button>J</button>
+            <button>K</button>
+            <button>L</button>
+            <button>M</button>
+            <button>N</button>
+            <button>O</button>
+            <button>P</button>
+            <button>Q</button>
+            <button>R</button>
+            <button>S</button>
+            <button>T</button>
+            <button>U</button>
+            <button>V</button>
+            <button>W</button>
+            <button>X</button>
+            <button>Y</button>
+            <button>Z</button>
+
+        </section>
+
+        <!-- Aposta final -->
+        <section class="final-bet">
+
+            <h2>Quando tiver certeza...</h2>
+
+            <button id="final-button">
+                🎴 APOSTA FINAL
+            </button>
+
+            <div id="final-input" class="hidden">
+
+                <input
+                    type="text"
+                    id="guess"
+                    placeholder="Digite a palavra secreta"
+                    maxlength="20"
+                >
+
+                <button id="submit-guess">
+                    Confirmar
+                </button>
+
+            </div>
+
+        </section>
+
+        <!-- Mensagens -->
+        <div id="message"></div>
+
+    </main>
+
+
+    <!-- =========================================
+         TELA DE VITÓRIA CAÓTICA
+    ========================================= -->
+
+    <div id="victory-screen" class="hidden">
+
+        <div class="victory-title">
+            VOCÊ VENCEU!!!
+        </div>
+
+        <div class="victory-subtitle">
+            ISSO FOI ABSOLUTAMENTE DESNECESSÁRIO
+        </div>
+
+        <div id="chaos-container"></div>
+
+    </div>
+
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+
+</body>
+
+</html>
