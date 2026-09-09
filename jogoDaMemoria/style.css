@@ -1,0 +1,1448 @@
+/* =========================================================
+   🧠 JOGO DA MEMÓRIA
+   FRUTIGER AERO × WINDOWS VISTA/7 × SKEUOMORFISMO
+   ─────────────────────────────────────────────────────────
+   Um pequeno paraíso digital 🌿☁️💧🦋
+   ========================================================= */
+
+
+/* =========================================================
+   🌎 CONFIGURAÇÕES GERAIS
+   ========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+}
+
+body {
+
+    min-height: 100vh;
+
+    font-family:
+        "Segoe UI",
+        Tahoma,
+        Arial,
+        sans-serif;
+
+    color: #164b32;
+
+    overflow-x: hidden;
+
+    position: relative;
+
+    /*
+       CÉU → ATMOSFERA → HORIZONTE → CAMPO
+    */
+
+    background:
+
+        /* brilho atmosférico */
+        radial-gradient(
+            ellipse at 72% 15%,
+            rgba(255,255,255,0.75) 0%,
+            rgba(255,255,255,0.18) 20%,
+            transparent 45%
+        ),
+
+        /* nuvens distantes */
+        radial-gradient(
+            ellipse at 20% 38%,
+            rgba(255,255,255,0.55) 0%,
+            transparent 25%
+        ),
+
+        /* campo */
+        linear-gradient(
+            to bottom,
+            #2db8ed 0%,
+            #63d1f5 27%,
+            #b9edff 48%,
+            #d8f7ff 53%,
+            #8bdb62 54%,
+            #55bd48 68%,
+            #319f3b 82%,
+            #207e31 100%
+        );
+
+    /*
+       Leve profundidade atmosférica.
+    */
+
+    background-attachment: fixed;
+}
+
+
+/* =========================================================
+   ✨ ATMOSFERA / BRUMA
+   ========================================================= */
+
+body::before {
+
+    content: "";
+
+    position: fixed;
+
+    inset: -100px;
+
+    pointer-events: none;
+
+    z-index: 0;
+
+    background:
+
+        radial-gradient(
+            ellipse at 50% 48%,
+            rgba(255,255,255,0.28),
+            transparent 45%
+        ),
+
+        radial-gradient(
+            ellipse at 15% 70%,
+            rgba(120,255,190,0.18),
+            transparent 35%
+        ),
+
+        radial-gradient(
+            ellipse at 90% 65%,
+            rgba(80,210,255,0.20),
+            transparent 35%
+        );
+
+    /*
+       Esse blur dá aquela sensação de
+       "paisagem distante".
+    */
+
+    filter: blur(35px);
+
+    opacity: 0.9;
+}
+
+
+/* =========================================================
+   ☀️ SOL AERO
+   ========================================================= */
+
+body::after {
+
+    content: "☀";
+
+    position: fixed;
+
+    top: 25px;
+    right: 65px;
+
+    width: 130px;
+    height: 130px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 88px;
+
+    color: #fffbd0;
+
+    text-shadow:
+
+        0 0 8px #ffffff,
+
+        0 0 18px #fffbd0,
+
+        0 0 38px #fff39a,
+
+        0 0 70px #ffe96b,
+
+        0 0 120px rgba(255,230,80,0.7);
+
+    filter:
+        drop-shadow(
+            0 10px 10px rgba(120,120,0,0.12)
+        );
+
+    pointer-events: none;
+
+    z-index: 1;
+
+    animation:
+        solBrilhando 5s ease-in-out infinite;
+}
+
+
+@keyframes solBrilhando {
+
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 0.9;
+    }
+
+    50% {
+        transform: scale(1.08);
+        opacity: 1;
+    }
+}
+
+
+/* =========================================================
+   ☁️ NUVENS DISTANTES
+   ========================================================= */
+
+main::before {
+
+    content: "";
+
+    position: fixed;
+
+    top: 80px;
+    left: -220px;
+
+    width: 260px;
+    height: 65px;
+
+    border-radius: 70px;
+
+    background:
+        rgba(255,255,255,0.72);
+
+    box-shadow:
+
+        60px 5px 0 -5px rgba(255,255,255,0.72),
+
+        115px 0 0 -10px rgba(255,255,255,0.72),
+
+        48px -30px 0 -2px rgba(255,255,255,0.72),
+
+        95px -22px 0 -4px rgba(255,255,255,0.72),
+
+        0 10px 25px rgba(70,150,180,0.15);
+
+    filter: blur(1px);
+
+    opacity: 0.85;
+
+    pointer-events: none;
+
+    z-index: 1;
+
+    animation:
+        nuvemPasseando 45s linear infinite;
+}
+
+
+@keyframes nuvemPasseando {
+
+    from {
+        transform: translateX(-100px);
+    }
+
+    to {
+        transform: translateX(125vw);
+    }
+}
+
+
+/* =========================================================
+   ☁️ SEGUNDA CAMADA DE NUVENS
+   ========================================================= */
+
+main {
+
+    position: relative;
+
+    z-index: 2;
+
+    text-align: center;
+
+    width: 100%;
+
+    padding:
+        5px 20px 90px;
+}
+
+
+/* =========================================================
+   🌫️ BRUMA DO HORIZONTE
+   ========================================================= */
+
+main::after {
+
+    content: "";
+
+    position: fixed;
+
+    left: -5%;
+    bottom: 22%;
+
+    width: 110%;
+    height: 130px;
+
+    background:
+        linear-gradient(
+            to bottom,
+            transparent,
+            rgba(255,255,255,0.25),
+            transparent
+        );
+
+    filter: blur(18px);
+
+    opacity: 0.8;
+
+    pointer-events: none;
+
+    z-index: -1;
+}
+
+
+/* =========================================================
+   🌱 TEXTURA DO CAMPO
+   ========================================================= */
+
+body {
+
+    background-image:
+
+        /* pequenas manchas de luz */
+        radial-gradient(
+            circle at 20% 76%,
+            rgba(255,255,255,0.16) 0 2px,
+            transparent 3px
+        ),
+
+        radial-gradient(
+            circle at 70% 82%,
+            rgba(255,255,255,0.13) 0 3px,
+            transparent 4px
+        ),
+
+        radial-gradient(
+            circle at 40% 70%,
+            rgba(20,120,40,0.12) 0 3px,
+            transparent 4px
+        ),
+
+        linear-gradient(
+            to bottom,
+            #2db8ed 0%,
+            #63d1f5 27%,
+            #b9edff 48%,
+            #d8f7ff 53%,
+            #8bdb62 54%,
+            #55bd48 68%,
+            #319f3b 82%,
+            #207e31 100%
+        );
+
+    background-size:
+        240px 240px,
+        320px 320px,
+        280px 280px,
+        100% 100%;
+
+    background-attachment: fixed;
+}
+
+
+/* =========================================================
+   🌿 FLORES DO CAMPO
+   ========================================================= */
+
+body {
+
+    --flor-branca:
+        radial-gradient(
+            circle at 50% 25%,
+            white 0 7px,
+            transparent 8px
+        );
+
+    --flor-amarela:
+        radial-gradient(
+            circle at 50% 25%,
+            #fffbd0 0 7px,
+            transparent 8px
+        );
+}
+
+
+/* =========================================================
+   🪟 HEADER — VIDRO AERO
+   ========================================================= */
+
+header {
+
+    position: relative;
+
+    margin:
+        20px auto 12px;
+
+    width:
+        min(94%, 1050px);
+
+    min-height: 82px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding:
+        13px 20px;
+
+    /*
+       VIDRO TRANSPARENTE
+    */
+
+    background:
+
+        linear-gradient(
+            to bottom,
+            rgba(255,255,255,0.46),
+            rgba(220,248,255,0.25)
+        );
+
+    border:
+        1px solid rgba(255,255,255,0.72);
+
+    border-radius:
+        22px;
+
+    /*
+       PROFUNDIDADE DE VIDRO
+    */
+
+    box-shadow:
+
+        0 14px 35px
+            rgba(0,70,100,0.20),
+
+        inset 0 2px 0
+            rgba(255,255,255,0.82),
+
+        inset 0 -5px 12px
+            rgba(40,150,180,0.10);
+
+    backdrop-filter:
+        blur(18px)
+        saturate(135%);
+
+    -webkit-backdrop-filter:
+        blur(18px)
+        saturate(135%);
+
+    overflow:
+        hidden;
+
+    z-index:
+        20;
+}
+
+
+/* =========================================================
+   ✨ BRILHO DO VIDRO
+   ========================================================= */
+
+header::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: 3px;
+    left: 8%;
+
+    width: 84%;
+    height: 4px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255,255,255,0.88);
+
+    filter:
+        blur(1px);
+
+    box-shadow:
+        0 0 15px white;
+
+    pointer-events:
+        none;
+}
+
+
+/* =========================================================
+   💎 REFLEXO LATERAL DO VIDRO
+   ========================================================= */
+
+header::after {
+
+    content: "";
+
+    position: absolute;
+
+    top: -50px;
+    right: -80px;
+
+    width: 240px;
+    height: 180px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255,255,255,0.18);
+
+    filter:
+        blur(20px);
+
+    pointer-events:
+        none;
+}
+
+
+/* =========================================================
+   🏆 INFORMAÇÕES
+   ========================================================= */
+
+#fase,
+#tempo,
+#pontuacao {
+
+    position: relative;
+
+    padding:
+        11px 17px;
+
+    border-radius:
+        14px;
+
+    font-weight:
+        700;
+
+    font-size:
+        18px;
+
+    white-space:
+        nowrap;
+
+    color:
+        #15583b;
+
+    /*
+       BOTÃO DE VIDRO
+    */
+
+    background:
+
+        linear-gradient(
+            to bottom,
+            rgba(255,255,255,0.82),
+            rgba(220,248,255,0.38)
+        );
+
+    border:
+        1px solid rgba(255,255,255,0.78);
+
+    box-shadow:
+
+        0 4px 10px
+            rgba(0,80,100,0.20),
+
+        inset 0 2px 2px
+            rgba(255,255,255,0.9),
+
+        inset 0 -3px 7px
+            rgba(40,140,170,0.12);
+
+    backdrop-filter:
+        blur(10px);
+
+    text-shadow:
+        0 1px white;
+
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        background 0.18s ease;
+}
+
+
+/* =========================================================
+   🖱️ HOVER DOS PAINÉIS
+   ========================================================= */
+
+#fase:hover,
+#tempo:hover,
+#pontuacao:hover {
+
+    transform:
+        translateY(-3px);
+
+    background:
+
+        linear-gradient(
+            to bottom,
+            rgba(255,255,255,0.92),
+            rgba(225,250,255,0.48)
+        );
+
+    box-shadow:
+
+        0 8px 16px
+            rgba(0,80,100,0.25),
+
+        0 0 12px
+            rgba(255,255,255,0.45),
+
+        inset 0 2px 2px white;
+}
+
+
+/* =========================================================
+   🧠 TÍTULO
+   ========================================================= */
+
+h1 {
+
+    display:
+        inline-block;
+
+    margin:
+        18px auto 28px;
+
+    padding:
+        16px 38px;
+
+    font-size:
+        clamp(28px, 5vw, 48px);
+
+    color:
+        #17643c;
+
+    /*
+       VIDRO VERDE
+    */
+
+    background:
+
+        linear-gradient(
+            to bottom,
+            rgba(255,255,255,0.58),
+            rgba(225,255,235,0.30)
+        );
+
+    border:
+        1px solid rgba(255,255,255,0.78);
+
+    border-radius:
+        28px;
+
+    box-shadow:
+
+        0 10px 25px
+            rgba(0,80,30,0.18),
+
+        inset 0 2px 2px
+            rgba(255,255,255,0.9),
+
+        inset 0 -7px 12px
+            rgba(60,160,80,0.10);
+
+    backdrop-filter:
+        blur(15px);
+
+    -webkit-backdrop-filter:
+        blur(15px);
+
+    text-shadow:
+
+        0 2px white,
+
+        0 4px 5px
+            rgba(0,70,30,0.22);
+
+    position:
+        relative;
+
+    overflow:
+        hidden;
+}
+
+
+/* brilho passando pelo título */
+
+h1::after {
+
+    content: "";
+
+    position: absolute;
+
+    top: -30%;
+
+    left: -50%;
+
+    width: 40%;
+
+    height: 160%;
+
+    background:
+        rgba(255,255,255,0.35);
+
+    transform:
+        rotate(25deg);
+
+    filter:
+        blur(8px);
+
+    animation:
+        brilhoPassando 7s ease-in-out infinite;
+}
+
+
+@keyframes brilhoPassando {
+
+    0%,
+    45% {
+        left: -50%;
+    }
+
+    70%,
+    100% {
+        left: 130%;
+    }
+}
+
+
+/* =========================================================
+   🌎 TABULEIRO — AQUÁRIO DE VIDRO
+   ========================================================= */
+
+#tabuleiro {
+
+    position:
+        relative;
+
+    width:
+        min(94vw, 1050px);
+
+    margin:
+        0 auto;
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(135px, 1fr));
+
+    gap:
+        22px;
+
+    padding:
+        28px;
+
+    /*
+       VIDRO MUITO TRANSPARENTE
+    */
+
+    background:
+
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,0.38),
+            rgba(220,250,255,0.16)
+        );
+
+    border:
+        2px solid rgba(255,255,255,0.58);
+
+    border-radius:
+        32px;
+
+    box-shadow:
+
+        0 20px 40px
+            rgba(0,70,70,0.20),
+
+        inset 0 2px 4px
+            rgba(255,255,255,0.8),
+
+        inset 0 -12px 25px
+            rgba(40,140,100,0.08);
+
+    backdrop-filter:
+        blur(14px)
+        saturate(130%);
+
+    -webkit-backdrop-filter:
+        blur(14px)
+        saturate(130%);
+
+    overflow:
+        visible;
+}
+
+
+/* =========================================================
+   ✨ REFLEXO DO TABULEIRO
+   ========================================================= */
+
+#tabuleiro::before {
+
+    content: "";
+
+    position:
+        absolute;
+
+    top:
+        7px;
+
+    left:
+        8%;
+
+    width:
+        84%;
+
+    height:
+        3px;
+
+    border-radius:
+        50%;
+
+    background:
+        rgba(255,255,255,0.75);
+
+    box-shadow:
+        0 0 18px rgba(255,255,255,0.8);
+
+    pointer-events:
+        none;
+}
+
+
+/* =========================================================
+   🌿 FLORES AO REDOR DO TABULEIRO
+   ========================================================= */
+
+#tabuleiro::after {
+
+    content:
+        "✿   ❀   ✾   ❁   ✿   ❀   ✾";
+
+    position:
+        absolute;
+
+    left:
+        50%;
+
+    bottom:
+        -52px;
+
+    transform:
+        translateX(-50%);
+
+    width:
+        100%;
+
+    font-size:
+        30px;
+
+    letter-spacing:
+        20px;
+
+    color:
+        rgba(255,255,255,0.85);
+
+    text-shadow:
+
+        0 2px 5px
+            rgba(30,110,50,0.3),
+
+        0 0 8px
+            rgba(255,255,255,0.5);
+
+    pointer-events:
+        none;
+
+    opacity:
+        0.85;
+}
+
+
+/* =========================================================
+   🃏 CARTAS
+   ========================================================= */
+
+.carta {
+
+    position:
+        relative;
+
+    width:
+        100%;
+
+    aspect-ratio:
+        1 / 1;
+
+    min-height:
+        130px;
+
+    cursor:
+        pointer;
+
+    overflow:
+        hidden;
+
+    border-radius:
+        23px;
+
+    background:
+
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,0.88),
+            rgba(220,248,255,0.62),
+            rgba(120,220,240,0.45)
+        );
+
+    border:
+        2px solid
+        rgba(255,255,255,0.90);
+
+    box-shadow:
+
+        0 9px 14px
+            rgba(0,70,90,0.25),
+
+        inset 0 3px 4px
+            rgba(255,255,255,0.95),
+
+        inset 0 -8px 12px
+            rgba(35,150,180,0.15);
+
+    backdrop-filter:
+        blur(7px);
+
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        filter 0.18s ease;
+}
+
+
+/* =========================================================
+   ✨ BRILHO DAS CARTAS
+   ========================================================= */
+
+.carta::before {
+
+    content:
+        "";
+
+    position:
+        absolute;
+
+    top:
+        7px;
+
+    left:
+        9px;
+
+    width:
+        65%;
+
+    height:
+        32%;
+
+    border-radius:
+        50%;
+
+    background:
+
+        linear-gradient(
+            to bottom,
+            rgba(255,255,255,0.75),
+            rgba(255,255,255,0)
+        );
+
+    transform:
+        rotate(-12deg);
+
+    pointer-events:
+        none;
+
+    z-index:
+        3;
+}
+
+
+/* =========================================================
+   🌊 REFLEXO NAS CARTAS
+   ========================================================= */
+
+.carta::after {
+
+    content:
+        "";
+
+    position:
+        absolute;
+
+    right:
+        -25px;
+
+    bottom:
+        -40px;
+
+    width:
+        120px;
+
+    height:
+        120px;
+
+    border-radius:
+        50%;
+
+    background:
+
+        radial-gradient(
+            circle,
+            rgba(255,255,255,0.65),
+            rgba(90,210,240,0.05) 65%,
+            transparent 70%
+        );
+
+    pointer-events:
+        none;
+
+    z-index:
+        2;
+}
+
+
+/* =========================================================
+   🖱️ HOVER
+   ========================================================= */
+
+.carta:hover {
+
+    transform:
+        translateY(-7px)
+        rotate(-1deg)
+        scale(1.015);
+
+    filter:
+        brightness(1.08);
+
+    box-shadow:
+
+        0 17px 25px
+            rgba(0,80,100,0.30),
+
+        0 0 18px
+            rgba(255,255,255,0.65),
+
+        inset 0 3px 5px white,
+
+        inset 0 -8px 12px
+            rgba(35,150,180,0.12);
+}
+
+
+/* =========================================================
+   👆 CLICK
+   ========================================================= */
+
+.carta:active {
+
+    transform:
+        translateY(2px)
+        scale(0.96);
+
+    box-shadow:
+
+        0 3px 5px
+            rgba(0,70,90,0.35),
+
+        inset 0 5px 8px
+            rgba(0,100,130,0.18),
+
+        inset 0 -2px 3px white;
+}
+
+
+/* =========================================================
+   🖼️ IMAGENS
+   ========================================================= */
+
+.carta img {
+
+    width:
+        100%;
+
+    height:
+        100%;
+
+    object-fit:
+        cover;
+
+    display:
+        block;
+
+    border-radius:
+        19px;
+
+    border:
+        3px solid
+        rgba(255,255,255,0.72);
+
+    box-shadow:
+        inset 0 0 12px
+        rgba(0,80,100,0.20);
+
+    animation:
+        aparecerImagem 0.25s ease-out;
+}
+
+
+@keyframes aparecerImagem {
+
+    from {
+
+        opacity:
+            0;
+
+        transform:
+            scale(0.82);
+    }
+
+    to {
+
+        opacity:
+            1;
+
+        transform:
+            scale(1);
+    }
+}
+
+
+/* =========================================================
+   💚 CARTA ENCONTRADA
+   ========================================================= */
+
+.carta.encontrada {
+
+    cursor:
+        default;
+
+    border-color:
+        rgba(255,255,255,0.95);
+
+    box-shadow:
+
+        0 0 18px
+            rgba(255,255,255,0.85),
+
+        0 9px 17px
+            rgba(0,100,50,0.22),
+
+        inset 0 3px 4px white;
+}
+
+
+.carta.encontrada::after {
+
+    background:
+
+        radial-gradient(
+            circle,
+            rgba(150,255,170,0.50),
+            transparent 65%
+        );
+}
+
+
+.carta.encontrada::before {
+
+    animation:
+        brilhoCarta 2s ease-in-out infinite;
+}
+
+
+@keyframes brilhoCarta {
+
+    0%,
+    100% {
+        opacity:
+            0.4;
+    }
+
+    50% {
+        opacity:
+            1;
+    }
+}
+
+
+/* =========================================================
+   🦋 BORBOLETAS MONARCA — CSS PURO
+   ========================================================= */
+
+/*
+   Essas pequenas borboletas são feitas com gradientes.
+   Nada de imagem externa.
+*/
+
+body {
+
+    --asas-monarca:
+
+        radial-gradient(
+            ellipse at center,
+            #ff9f32 0 45%,
+            #d96518 46% 62%,
+            #17130f 63% 100%
+        );
+}
+
+
+/* borboleta decorativa */
+
+header::selection,
+h1::selection,
+.carta::selection {
+    background:
+        rgba(255,180,60,0.4);
+}
+
+
+/* =========================================================
+   🌼 PEQUENOS DETALHES BOTÂNICOS
+   ========================================================= */
+
+#tabuleiro {
+
+    background-image:
+
+        radial-gradient(
+            circle at 12% 90%,
+            rgba(255,255,255,0.20) 0 3px,
+            transparent 4px
+        ),
+
+        radial-gradient(
+            circle at 90% 15%,
+            rgba(255,255,255,0.18) 0 2px,
+            transparent 3px
+        ),
+
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,0.38),
+            rgba(220,250,255,0.16)
+        );
+}
+
+
+/* =========================================================
+   💧 PEQUENAS GOTAS DE ORVALHO
+   ========================================================= */
+
+main {
+
+    background-image:
+
+        radial-gradient(
+            ellipse at 18% 92%,
+            rgba(255,255,255,0.25) 0 2px,
+            transparent 3px
+        ),
+
+        radial-gradient(
+            ellipse at 83% 88%,
+            rgba(255,255,255,0.22) 0 3px,
+            transparent 4px
+        );
+}
+
+
+/* =========================================================
+   🌈 AURA DE LUZ
+   ========================================================= */
+
+body {
+
+    isolation:
+        isolate;
+}
+
+
+/* =========================================================
+   📱 RESPONSIVIDADE
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    header {
+
+        width:
+            94%;
+
+        flex-wrap:
+            wrap;
+
+        justify-content:
+            center;
+
+        padding:
+            12px;
+
+    }
+
+
+    #fase,
+    #tempo,
+    #pontuacao {
+
+        font-size:
+            15px;
+
+        padding:
+            9px 12px;
+    }
+
+
+    h1 {
+
+        font-size:
+            30px;
+
+        padding:
+            12px 20px;
+    }
+
+
+    #tabuleiro {
+
+        grid-template-columns:
+            repeat(3, minmax(80px, 1fr));
+
+        gap:
+            12px;
+
+        padding:
+            14px;
+
+        border-radius:
+            22px;
+    }
+
+
+    .carta {
+
+        min-height:
+            0;
+
+        border-radius:
+            16px;
+    }
+
+
+    .carta img {
+
+        border-radius:
+            13px;
+    }
+
+
+    body::after {
+
+        top:
+            20px;
+
+        right:
+            15px;
+
+        font-size:
+            55px;
+    }
+}
+
+
+/* =========================================================
+   📱 CELULAR PEQUENO
+   ========================================================= */
+
+@media (max-width: 430px) {
+
+    header {
+
+        gap:
+            7px;
+    }
+
+
+    #fase,
+    #tempo,
+    #pontuacao {
+
+        font-size:
+            13px;
+
+        padding:
+            8px 9px;
+    }
+
+
+    #tabuleiro {
+
+        grid-template-columns:
+            repeat(2, minmax(100px, 1fr));
+
+        gap:
+            14px;
+    }
+
+
+    h1 {
+
+        font-size:
+            25px;
+    }
+}
+
+
+/* =========================================================
+   ♻️ ACESSIBILIDADE
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+
+        animation-duration:
+            0.01ms !important;
+
+        animation-iteration-count:
+            1 !important;
+
+        scroll-behavior:
+            auto !important;
+
+        transition-duration:
+            0.01ms !important;
+    }
+}
