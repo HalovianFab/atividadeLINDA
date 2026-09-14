@@ -8,10 +8,8 @@ const config = {
     width: 800,
     height: 500,
 
-    // O Phaser vai colocar o jogo dentro da div "jogo"
     parent: "jogo",
 
-    // Sistema de física
     physics: {
         default: "arcade",
 
@@ -24,7 +22,6 @@ const config = {
         }
     },
 
-    // Cenas do jogo
     scene: {
         preload: preload,
         create: create,
@@ -43,7 +40,11 @@ let ground;
 let cursors;
 let keys;
 
+let obstacles;
+
 let chegouAoDestino = false;
+let perdeuOJogo = false;
+
 let mensagemFinal;
 
 
@@ -53,9 +54,7 @@ let mensagemFinal;
 
 function preload() {
 
-    // Por enquanto não precisamos carregar imagens.
-    // Vamos criar o personagem e o cenário
-    // diretamente pelo Phaser.
+    // Não precisamos carregar imagens ainda.
 }
 
 
@@ -97,7 +96,6 @@ function create() {
         0x43a047
     );
 
-    // Adiciona física ao chão
     this.physics.add.existing(ground, true);
 
 
@@ -113,9 +111,7 @@ function create() {
         0xff4d6d
     );
 
-    // Adiciona física ao personagem
     this.physics.add.existing(player);
-
 
     // Impede o personagem de sair da tela
     player.body.setCollideWorldBounds(true);
@@ -132,17 +128,77 @@ function create() {
 
 
     // ------------------------------------
+    // OBSTÁCULOS
+    // ------------------------------------
+
+    obstacles = this.physics.add.staticGroup();
+
+
+    // Obstáculo 1
+    let obstaculo1 = this.add.rectangle(
+        280,
+        420,
+        50,
+        60,
+        0x8e44ad
+    );
+
+    obstacles.add(obstaculo1);
+
+
+    // Obstáculo 2
+    let obstaculo2 = this.add.rectangle(
+        450,
+        420,
+        50,
+        60,
+        0xe67e22
+    );
+
+    obstacles.add(obstaculo2);
+
+
+    // Obstáculo 3
+    let obstaculo3 = this.add.rectangle(
+        600,
+        420,
+        50,
+        60,
+        0xc0392b
+    );
+
+    obstacles.add(obstaculo3);
+
+
+    // ------------------------------------
+    // COLISÃO COM OS OBSTÁCULOS
+    // ------------------------------------
+
+    this.physics.add.collider(
+        player,
+        obstacles,
+
+        // Usamos uma função anônima para
+        // manter a cena do Phaser disponível.
+        () => {
+            perdeu(this);
+        }
+    );
+
+
+    // ------------------------------------
     // CONTROLES
     // ------------------------------------
 
-    // Setas do teclado
+    // Setas
     cursors = this.input.keyboard.createCursorKeys();
 
 
-    // Teclas A e D
+    // A, D e W
     keys = this.input.keyboard.addKeys({
         left: Phaser.Input.Keyboard.KeyCodes.A,
-        right: Phaser.Input.Keyboard.KeyCodes.D
+        right: Phaser.Input.Keyboard.KeyCodes.D,
+        jump: Phaser.Input.Keyboard.KeyCodes.W
     });
 
 
@@ -150,7 +206,7 @@ function create() {
     // PONTO DE DESTINO
     // ------------------------------------
 
-    // Poste da bandeira
+    // Poste
     this.add.rectangle(
         740,
         400,
@@ -178,7 +234,10 @@ function create() {
     );
 
 
-    // Texto indicando o objetivo
+    // ------------------------------------
+    // TEXTO DA CHEGADA
+    // ------------------------------------
+
     this.add.text(
         650,
         315,
@@ -194,15 +253,15 @@ function create() {
 
 
     // ------------------------------------
-    // TEXTO DE INSTRUÇÕES
+    // INSTRUÇÕES
     // ------------------------------------
 
     this.add.text(
         20,
         20,
-        "← → ou A/D para mover",
+        "← → / A D = andar   ↑ / W / Espaço = pular",
         {
-            fontSize: "20px",
+            fontSize: "18px",
             color: "#ffffff",
             fontStyle: "bold",
             stroke: "#3288b5",
@@ -217,6 +276,14 @@ function create() {
 // ========================================
 
 function update() {
+
+    // Se perdeu ou venceu,
+    // não permite mais movimentos.
+
+    if (perdeuOJogo || chegouAoDestino) {
+        return;
+    }
+
 
     // ------------------------------------
     // MOVIMENTO PARA A ESQUERDA
@@ -255,7 +322,28 @@ function update() {
 
 
     // ------------------------------------
-    // VERIFICAR SE CHEGOU AO DESTINO
+    // PULO
+    // ------------------------------------
+
+    // O personagem só pode pular
+    // quando estiver encostando no chão.
+
+    if (
+        (
+            cursors.up.isDown ||
+            keys.jump.isDown ||
+            cursors.space.isDown
+        )
+        &&
+        player.body.blocked.down
+    ) {
+
+        player.body.setVelocityY(-450);
+    }
+
+
+    // ------------------------------------
+    // VERIFICAR CHEGADA
     // ------------------------------------
 
     if (
@@ -267,6 +355,8 @@ function update() {
 
         // Para o personagem
         player.body.setVelocityX(0);
+        player.body.setVelocityY(0);
+
 
         // Mensagem de vitória
         mensagemFinal = this.add.text(
@@ -282,9 +372,72 @@ function update() {
             }
         );
 
-        // Centraliza a mensagem
         mensagemFinal.setOrigin(0.5);
     }
+}
+
+
+// ========================================
+// FUNÇÃO DE DERROTA
+// ========================================
+
+function perdeu(scene) {
+
+    // Evita executar várias vezes
+    if (perdeuOJogo) {
+        return;
+    }
+
+    perdeuOJogo = true;
+
+
+    // ------------------------------------
+    // PARAR O PERSONAGEM
+    // ------------------------------------
+
+    player.body.setVelocityX(0);
+    player.body.setVelocityY(0);
+
+    // Desativa o corpo físico
+    player.body.enable = false;
+
+
+    // ------------------------------------
+    // GAME OVER
+    // ------------------------------------
+
+    mensagemFinal = scene.add.text(
+        400,
+        220,
+        "💥 GAME OVER!",
+        {
+            fontSize: "40px",
+            color: "#ffffff",
+            fontStyle: "bold",
+            stroke: "#c0392b",
+            strokeThickness: 7
+        }
+    );
+
+    mensagemFinal.setOrigin(0.5);
+
+
+    // ------------------------------------
+    // MENSAGEM
+    // ------------------------------------
+
+    scene.add.text(
+        400,
+        275,
+        "Você bateu em um obstáculo!",
+        {
+            fontSize: "20px",
+            color: "#ffffff",
+            fontStyle: "bold",
+            stroke: "#c0392b",
+            strokeThickness: 4
+        }
+    ).setOrigin(0.5);
 }
 
 
