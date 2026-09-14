@@ -1,0 +1,105 @@
+/* ========================================
+CONFIGURAÇÕES GERAIS
+======================================== */
+
+* {
+  box-sizing: border-box;
+  }
+
+body {
+margin: 0;
+min-height: 100vh;
+
+
+font-family: Arial, sans-serif;
+
+background:
+    linear-gradient(
+        to bottom,
+        #65cfff 0%,
+        #a8e8ff 65%,
+        #d8f7ff 100%
+    );
+
+display: flex;
+flex-direction: column;
+align-items: center;
+
+overflow: hidden;
+
+
+}
+
+/* ========================================
+TÍTULO
+======================================== */
+
+h1 {
+margin: 20px 0 15px;
+
+
+color: white;
+
+font-size: 30px;
+
+text-shadow:
+    2px 3px 0 #3288b5,
+    0 0 8px rgba(255, 255, 255, 0.8);
+
+
+}
+
+/* ========================================
+ÁREA DO JOGO
+======================================== */
+
+#jogo {
+width: 800px;
+height: 500px;
+
+
+max-width: 95vw;
+max-height: 70vh;
+
+border: 6px solid white;
+border-radius: 15px;
+
+overflow: hidden;
+
+box-shadow:
+    0 8px 20px rgba(0, 80, 120, 0.35),
+    inset 0 0 15px rgba(255, 255, 255, 0.5);
+
+background: #87ceeb;
+
+
+}
+
+/* ========================================
+RESPONSIVIDADE
+======================================== */
+
+@media (max-width: 850px) {
+
+
+#jogo {
+    width: 95vw;
+    height: 60vh;
+}
+
+
+}
+
+@media (max-width: 500px) {
+
+
+h1 {
+    font-size: 22px;
+}
+
+#jogo {
+    height: 55vh;
+}
+
+
+}
