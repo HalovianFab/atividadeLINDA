@@ -1,0 +1,108 @@
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #dff6ff, #bde0fe);
+    min-height: 100vh;
+    margin: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    background-color: white;
+    width: 400px;
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+    color: #247ba0;
+}
+
+p {
+    color: #555;
+}
+
+label {
+    display: block;
+    margin-top: 20px;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    box-sizing: border-box;
+
+    border: 2px solid #bde0fe;
+    border-radius: 10px;
+
+    font-size: 16px;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 20px;
+
+    background-color: #247ba0;
+    color: white;
+
+    border: none;
+    border-radius: 10px;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #1b5f7a;
+}
+
+#resultado {
+    margin-top: 25px;
+    font-size: 20px;
+}
+
+#premio {
+    margin-top: 15px;
+    padding: 20px;
+
+    border-radius: 15px;
+
+    background-color: #e8f8ff;
+
+    font-size: 24px;
+    font-weight: bold;
+    color: #247ba0;
+}
+
+/* Animação do prêmio */
+
+.destaque {
+    animation: aparecer 0.8s ease;
+}
+
+@keyframes aparecer {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+
+    50% {
+        transform: scale(1.15);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
